@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <elements>
+    <div style="background:#000;border:5px solid #0f0;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);width:300px;height:300px;" id="bulletBoard"></div>
+    <img src="https://f1redude123.github.io/soul.png" id="soul" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);">
+  </elements>
+  <script>
+    var keyMap = {
+      "ArrowRight": false,
+      "ArrowLeft": false,
+      "ArrowUp": false,
+      "ArrowDown": false,
+      "z": false,
+      "x": false
+    };
+
+    var x = window.innerWidth / 2;
+    var y = window.innerHeight / 2;
+
+    var speed = 2;
+
+    var bounds = document.getElementById("bulletBoard").getBoundingClientRect();
+
+    var soul = document.getElementById("soul");
+    
+    window.addEventListener("keydown", function(e) {
+      if (e.key in keyMap)
+        keyMap[e.key] = true;
+    });
+    
+    window.addEventListener("keyup", function(e) {
+      if (e.key in keyMap)
+        keyMap[e.key] = false;
+    });
+    
+    function tick() {
+      if (keyMap.ArrowRight && x + 3 < bounds.right - 5)
+        x += speed;
+      if (keyMap.ArrowLeft && x - 3 > bounds.left + 5)
+        x -= speed;
+      if (keyMap.ArrowDown && y + 3 < bounds.bottom - 5)
+        y += speed;
+      if (keyMap.ArrowUp && y - 3 > bounds.top + 5)
+        y -= speed;
+
+      soul.style.left = x + "px";
+      soul.style.top = y + "px";
+      
+      requestAnimationFrame(tick);
+    }
+
+    tick();
+  </script>
+</html>
