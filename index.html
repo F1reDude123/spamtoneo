@@ -35,7 +35,7 @@
     window.addEventListener("keyup", function(e) {
       if (e.key in keyMap)
         keyMap[e.key] = false;
-      if (e.shiftKey)
+      if (!e.shiftKey)
         keyMap.shift = false;
     });
     
