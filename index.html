@@ -11,12 +11,14 @@
       "ArrowUp": false,
       "ArrowDown": false,
       "z": false,
-      "x": false
+      "x": false,
+      "shift": false
     };
 
     var x = window.innerWidth / 2;
     var y = window.innerHeight / 2;
-
+    
+    var baseSpeed = 2;
     var speed = 2;
 
     var bounds = document.getElementById("bulletBoard").getBoundingClientRect();
@@ -26,14 +28,23 @@
     window.addEventListener("keydown", function(e) {
       if (e.key in keyMap)
         keyMap[e.key] = true;
+      if (e.shiftKey)
+        keyMap.shift = true;
     });
     
     window.addEventListener("keyup", function(e) {
       if (e.key in keyMap)
         keyMap[e.key] = false;
+      if (e.shiftKey)
+        keyMap.shift = false;
     });
     
     function tick() {
+      if (keyMap.shift)
+        speed = 1;
+      else
+        speed = baseSpeed;
+      
       if (keyMap.ArrowRight && x + 3 < bounds.right - 5)
         x += speed;
       if (keyMap.ArrowLeft && x - 3 > bounds.left + 5)
